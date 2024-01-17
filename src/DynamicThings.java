@@ -2,11 +2,11 @@ import java.awt.*;
 
 public class DynamicThings extends AnimatedThings{
 
-    public DynamicThings(int height, int width, int x, int y) {
+    public DynamicThings(int height, int width, double x, double y) {
         super(height, width, x, y);
     }
 
-    public DynamicThings(int x, int y, Image img) {
+    public DynamicThings(double x, double y, Image img) {
         super( x, y, img);
     }
 

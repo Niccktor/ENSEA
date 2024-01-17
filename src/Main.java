@@ -21,7 +21,7 @@ public class Main {
 
         Hero hero = Hero.getInstance();
 
-        Dungeon dungeon = new Dungeon(5, 10);
+        //Dungeon dungeon = new Dungeon(5, 10);
         Dungeon dungeon1 = new Dungeon("./test.txt");
         dungeon1.display_Dungeon(hero.getBox());
         int i = 0;
@@ -32,7 +32,6 @@ public class Main {
             i++;
         }
         Hero tes = Hero.getInstance();
-        TileManager tileManager = new TileManager(32,32);
         System.out.println("é");
 
     }

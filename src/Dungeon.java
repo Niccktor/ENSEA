@@ -28,10 +28,10 @@ public class Dungeon {
             {
                 switch (this.maps[i][j]){
                     case 'W':
-                        this.listOfThings.add(new SolidThings(1, 1, j, i));
+                        this.listOfThings.add(new SolidThings(j, i, tile.getTile(0,1)));
                         break;
                     case ' ':
-                        this.listOfThings.add(new Things(1, 1, j, i));
+                        this.listOfThings.add(new Things(j, i, tile.getTile(0,0)));
                         break;
                 }
                 j++;
@@ -45,6 +45,8 @@ public class Dungeon {
         int width = 0;
         BufferedReader fd = null;
         String line;
+
+        this.tile = new TileManager(32, 32);
 
         try {
             fd = new BufferedReader(new FileReader(file));
@@ -95,6 +97,8 @@ public class Dungeon {
         this.height = height;
         this.width = width;
         this.maps = new char[height][width];
+        this.tile = new TileManager(32, 32);
+
         while (this.height > i)
         {
             j = 0;
