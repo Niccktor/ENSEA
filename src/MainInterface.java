@@ -39,11 +39,19 @@ public class MainInterface extends JFrame  implements KeyListener{
                 this.gameRender.hero.move(-0.1,0, this.gameRender.dungeon);
 //                System.out.format("Gauche \n");
                 break;
+            case KeyEvent.VK_Q:
+                this.gameRender.hero.move(-0.1,0, this.gameRender.dungeon);
+//                System.out.format("Gauche \n");
+                break;
             case KeyEvent.VK_D:
                 this.gameRender.hero.move(0.1,0, this.gameRender.dungeon);
 //                System.out.format("Droite \n");
                 break;
             case KeyEvent.VK_W:
+                this.gameRender.hero.move(0,-0.1, this.gameRender.dungeon);
+//                System.out.format("Haut \n");
+                break;
+            case KeyEvent.VK_Z:
                 this.gameRender.hero.move(0,-0.1, this.gameRender.dungeon);
 //                System.out.format("Haut \n");
                 break;
