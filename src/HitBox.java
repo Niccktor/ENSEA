@@ -1,6 +1,6 @@
 public class HitBox {
-    private double height;
-    private double width;
+    protected double height;
+    protected double width;
     private String name;
     private double x;
     private double y;

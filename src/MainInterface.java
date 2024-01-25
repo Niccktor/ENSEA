@@ -35,6 +35,9 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
     {
         for (Things t : gameRender.dungeon.getListOfThings()){
             t.draw(g);
+            g.drawLine(this.gameRender.mouseX,this.gameRender.mouseY, (int)(this.gameRender.hero.x * 32.0) +16, (int)(this.gameRender.hero.y *32.0) + 32 +16);
+            g.drawLine(0,0, (int)(this.gameRender.hero.x * 32.0) +16, (int)(this.gameRender.hero.y *32.0) + 32 +16);
+            g.drawLine(this.gameRender.mouseX,this.gameRender.mouseY, 0,0);
             if (gameRender.hero.box.intersect(t.getBox()))
                 gameRender.hero.draw(g);
         }
@@ -61,12 +64,6 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
         {
             pressedKeys.add(e.getKeyCode());
             switch (e.getKeyCode()) {
-                case KeyEvent.VK_LEFT:
-                    this.gameRender.hero.angle -= 10;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    this.gameRender.hero.angle += 10;
-                    break;
                 case KeyEvent.VK_A, KeyEvent.VK_Q:
                     this.gameRender.hero.acceleration(1);
                     break;
@@ -97,6 +94,6 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
     public void mouseMoved(MouseEvent e) {
         this.gameRender.mouseX = e.getX();
         this.gameRender.mouseY = e.getY();
-        System.out.format("Move, X = %d, Y = %d\n", e.getX(), e.getY());
+        //System.out.format("Move, X = %d, Y = %d\n", e.getX(), e.getY());
     }
 }

@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /*
 *
@@ -8,16 +10,8 @@ import java.io.File;
 
 public final class Hero extends DynamicThings {
     private static Hero instance = null;
-    private double speedX;
     private TileManager tile;
     public double angle = 0;
-    /*
-     *  IDDLE   = 0;
-     *  Gauche  = 1;
-     *  Droite  = 2;
-     *  Haut    = 3;
-     *  Bas     = 4;
-     */
 
     public double getSpeedX() {
         return speedX;
@@ -27,7 +21,12 @@ public final class Hero extends DynamicThings {
         return speedY;
     }
 
-    private double speedY;
+    public double speedY;
+    public double speedX;
+    public double max_speedY;
+    public double max_speedX;
+    public boolean Mur;
+
 
     public void setImg(int i)
     {
@@ -60,83 +59,65 @@ public final class Hero extends DynamicThings {
         }
         return Hero.instance;
     }
-    public void move(double dx, double dy, Dungeon dungeon){
-        boolean isPossible = true;
-        this.getBox().move(dx, dy);
-        if (this.getBox().getY() < 0 || this.getBox().getX() < 0)
-            isPossible = false;
-        for (Things t : dungeon.getListOfThings()){
-            if (t instanceof SolidThings) {
-                if (((SolidThings) t).getBox().intersect(this.getBox()))
-                {
 
-                    isPossible = false;
-                    break ;
-                }
-            }
-        }
-        if (isPossible)
-        {
-            this.x += dx;
-            this.y += dy;
-        }
-        else
-            this.getBox().move(-dx, -dy);
-    }
-    public void move(Dungeon dungeon)
-    {
-        boolean isPossible = true;
-        this.getBox().move(this.speedX, this.speedY);
-        for (Things t : dungeon.getListOfThings()){
-            if (t instanceof SolidThings) {
-                if (((SolidThings) t).getBox().intersect(this.getBox()))
-                {
-                    isPossible = false;
-                    break ;
-                }
-            }
-        }
-        if (isPossible)
-        {
-            this.x += this.speedX;
-            this.y += this.speedY;
-        }
-        else
-            this.getBox().move(-this.speedX, -this.speedY);
-
-    }
     public void acceleration(int code)
     {
         switch (code) {
             case 1: // gauche
-                if (this.speedX >= 0)
-                    this.speedX = -0.1;
-                this.speedX *= 1.4;
+                this.max_speedX = -0.3;
                 break;
             case 2: // Droite
-                if (this.speedX <= 0)
-                    this.speedX = 0.1;
-                this.speedX *= 2;
+                this.max_speedX =  0.3;
                 break;
             case 3: // Bas
-                if (this.speedY <= 0)
-                    this.speedY = 0.1;
-                this.speedY *= 2;
+                this.max_speedY = 0.3;
                 break;
             case 4: // Haut
-                if (this.speedY <= 0)
-                    this.speedY = -0.1;
-                this.speedY *= 1.4;
+                this.max_speedY= -0.3;
                 break;
             case 5:
-                this.speedX = 0;
+                this.max_speedX = 0;
                 break;
             case 6:
-                this.speedY = 0;
+                this.max_speedY = 0;
                 break;
         }
-        System.out.format("SpeedY : %f.2 SpeedX : %f.2\n", this.speedY, this.speedX);
+    }
 
+    public void test()
+    {
+        if (this.max_speedY == 0) {
+            if (this.speedY != 0) {
+                if (0 < this.speedY)
+                    this.speedY -= 0.01;
+                else
+                    this.speedY += 0.01;
+                this.speedY = Math.floor(this.speedY * 100) / 100;
+            }
+        }
+        else if (max_speedY > this.speedY) {
+            this.speedY+=0.005;
+        }
+        else {
+            this.speedY-=0.005;
+        }
+        if (this.max_speedX == 0) {
+            if (this.speedX != 0) {
+                if (0 < this.speedX)
+                    this.speedX -= 0.01;
+                else
+                    this.speedX += 0.01;
+                this.speedX = Math.floor(this.speedX * 100) / 100;
+
+            }
+        }
+        else if (max_speedX > this.speedX) {
+            this.speedX+=0.005;
+        }
+        else {
+            this.speedX-=0.005;
+        }
+        System.out.format("SpeedY : %.3f SpeedX : %.3f\nMaxSpeedY = %.3f MaxSpeedX = %.3f\n", this.speedY, this.speedX, this.max_speedY, this.max_speedX);
 
     }
 }
