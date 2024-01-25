@@ -46,7 +46,7 @@ public class Dungeon {
         BufferedReader fd = null;
         String line;
 
-        this.tile = new TileManager(32, 32);
+        this.tile = new TileManager(32, 32, "default_tiles_x.png");
 
         try {
             fd = new BufferedReader(new FileReader(file));
@@ -97,7 +97,7 @@ public class Dungeon {
         this.height = height;
         this.width = width;
         this.maps = new char[height][width];
-        this.tile = new TileManager(32, 32);
+        this.tile = new TileManager(32, 32, "default_tiles_x.png");
 
         while (this.height > i)
         {
