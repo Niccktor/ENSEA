@@ -13,9 +13,6 @@ public class GameRender {
     static int i = 0;
     public void action()
     {
-        i++;
-        i %= 8;
-        this.hero.setImg(i);
         this.hero.test();
 
         this.hero.angle = 180.0 / Math.PI * (Math.atan2((this.hero.y * 32) + (double) this.hero.height /2 +32  - mouseY, ((this.hero.x * 32) + (double) this.hero.width / 2) - mouseX)) - 90;
@@ -28,5 +25,9 @@ public class GameRender {
 
         }
 
+    }
+    public void put_bomb(Bomb bomb)
+    {
+        this.dungeon.listOfThings.add(bomb);
     }
 }

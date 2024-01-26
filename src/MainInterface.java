@@ -1,8 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
+import java.sql.Timestamp;
 import java.util.Set;
 import java.util.TreeSet;
+
 
 public class MainInterface extends JFrame  implements KeyListener, MouseMotionListener {
 
@@ -16,30 +20,38 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
         this.setVisible(true);
         this.setSize(new Dimension(1080, 500));
         this.setResizable(false);
-        ActionListener timerAction = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameRender.action();
-                paintComponent(getGraphics());
-            }
-        };
-        Timer clock = new Timer(17, timerAction);
-        clock.start();
+        long old_time = System.nanoTime();
+        long new_time;
+        BufferedImage buffer =  new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+
         this.addMouseMotionListener(this);
         this.addKeyListener(this);
-
+        while (true)
+        {
+            new_time = System.nanoTime();
+            if (new_time - old_time > 17000000)
+            {
+                //System.out.format("%d - %d = %d\n", new_time, old_time , new_time - old_time);
+                old_time = System.nanoTime();
+                gameRender.action();
+                paintComponent(buffer.getGraphics());
+                this.getGraphics().drawImage(buffer,0,0,this);
+            }
+        }
     }
     Set<Integer> pressedKeys = new TreeSet<Integer>();
 
     protected void paintComponent(Graphics g)
     {
         for (Things t : gameRender.dungeon.getListOfThings()){
+            if (t instanceof AnimatedThings){
+                ((AnimatedThings) t).sprit();
+            }
             t.draw(g);
-            g.drawLine(this.gameRender.mouseX,this.gameRender.mouseY, (int)(this.gameRender.hero.x * 32.0) +16, (int)(this.gameRender.hero.y *32.0) + 32 +16);
-            g.drawLine(0,0, (int)(this.gameRender.hero.x * 32.0) +16, (int)(this.gameRender.hero.y *32.0) + 32 +16);
-            g.drawLine(this.gameRender.mouseX,this.gameRender.mouseY, 0,0);
-            if (gameRender.hero.box.intersect(t.getBox()))
+            if (gameRender.hero.box.intersect(t.getBox())) {
+                gameRender.hero.sprit(gameRender.hero.angle);
                 gameRender.hero.draw(g);
+            }
         }
     }
     @Override
@@ -76,6 +88,8 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
                 case KeyEvent.VK_S:
                     this.gameRender.hero.acceleration(3);
                     break;
+                case KeyEvent.VK_L:
+                    this.gameRender.put_bomb(new Bomb(this.gameRender.hero.x, this.gameRender.hero.y, "Bomb.png"));
             }
         }
     }

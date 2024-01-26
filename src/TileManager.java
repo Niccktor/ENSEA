@@ -9,7 +9,7 @@ import java.io.File;
 public class TileManager {
     private int height;
     private int width;
-    private Image[][] tiles;
+    protected Image[][] tiles;
     private BufferedImage tileSheet;
     private void setTiles(int height, int width, String file) {
         try{

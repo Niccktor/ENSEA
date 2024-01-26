@@ -14,7 +14,7 @@ public class Dungeon {
         return listOfThings;
     }
 
-    private ArrayList<Things> listOfThings = new ArrayList<>();
+    protected ArrayList<Things> listOfThings = new ArrayList<>();
     private void createListOfThings(){
         this.listOfThings.clear();
         int i;

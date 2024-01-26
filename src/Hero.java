@@ -1,16 +1,10 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 
-/*
-*
-*/
 
 public final class Hero extends DynamicThings {
     private static Hero instance = null;
-    private TileManager tile;
     public double angle = 0;
 
     public double getSpeedX() {
@@ -25,8 +19,6 @@ public final class Hero extends DynamicThings {
     public double speedX;
     public double max_speedY;
     public double max_speedX;
-    public boolean Mur;
-
 
     public void setImg(int i)
     {
@@ -44,13 +36,19 @@ public final class Hero extends DynamicThings {
         this.speedY = 0;
         this.speedX = 0;
     }
+    private Hero(String file)
+    {
+        super(1,1, new TileManager(32, 32, file), 40000000);
+        this.speedY = 0;
+        this.speedX = 0;
+    }
 
     public final static Hero getInstance() {
         if (Hero.instance == null) {
             synchronized (Hero.class) {
                 if (Hero.instance == null) {
                    try {
-                       Hero.instance = new Hero(ImageIO.read(new File("./hero_a.png")).getSubimage(0,0,32,32));
+                       Hero.instance = new Hero("hero_a.png");
                    } catch(Exception e){
                        e.printStackTrace();
                    }
