@@ -17,7 +17,11 @@ public class Bomb extends DynamicThings{
             this.i++;
             this.old_time = System.nanoTime();
         }
-        this.i = (this.i < this.tile.tiles[0].length) ? this.i : 0;
+        if (!(this.i < this.tile.tiles[0].length))
+        {
+            this.tile = new TileManager(32,32, "explosion_center.png");
+            this.i = 0;
+        }
         this.img = this.tile.getTile(0,this.i);
         System.out.format("i: %d\n\n", i);
     }

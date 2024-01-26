@@ -24,7 +24,6 @@ public class GameRender {
             this.hero.speedY = 0;
 
         }
-
     }
     public void put_bomb(Bomb bomb)
     {

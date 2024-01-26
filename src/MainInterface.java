@@ -2,13 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
-import java.sql.Timestamp;
 import java.util.Set;
 import java.util.TreeSet;
 
-
 public class MainInterface extends JFrame  implements KeyListener, MouseMotionListener {
+    boolean test = false;
 
     GameRender gameRender = null;
 
@@ -34,6 +32,11 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
                 //System.out.format("%d - %d = %d\n", new_time, old_time , new_time - old_time);
                 old_time = System.nanoTime();
                 gameRender.action();
+                if (test)
+                {
+                    test = false;
+                    this.gameRender.put_bomb(new Bomb(this.gameRender.hero.x, this.gameRender.hero.y, "Bomb.png"));
+                }
                 paintComponent(buffer.getGraphics());
                 this.getGraphics().drawImage(buffer,0,0,this);
             }
@@ -70,7 +73,7 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
         }
     }
     @Override
-    public void keyPressed(KeyEvent e)
+    synchronized public void keyPressed(KeyEvent e)
     {
         if (!pressedKeys.contains(e.getKeyCode()))
         {
@@ -89,7 +92,9 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
                     this.gameRender.hero.acceleration(3);
                     break;
                 case KeyEvent.VK_L:
-                    this.gameRender.put_bomb(new Bomb(this.gameRender.hero.x, this.gameRender.hero.y, "Bomb.png"));
+                    //this.gameRender.put_bomb(new Bomb(this.gameRender.hero.x, this.gameRender.hero.y, "Bomb.png"));
+                    test = true;
+                    break;
             }
         }
     }
