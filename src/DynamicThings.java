@@ -23,24 +23,29 @@ public class DynamicThings extends AnimatedThings{
         this.y += dY;
     }
 
-    public boolean move(double dx, double dy, Dungeon dungeon){
-        boolean isPossible = true;
+    public int move(double dx, double dy, Dungeon dungeon){
+        int isPossible = 1;
         this.getBox().move(dx, dy);
         if (this.getBox().getY() < 0 || this.getBox().getX() < 0)
-            isPossible = false;
+            isPossible = 0;
         for (Things t : dungeon.getListOfThings()){
             if (t instanceof SolidThings) {
+                if ((t instanceof Explosion) && ((SolidThings) t).getBox().intersect(this.getBox()))
+                {
+                    System.out.format("Fin du jeu !\n");
+                    return (2);
+                }
                 if (!(t instanceof Bomb))
                 {
                     if (((SolidThings) t).getBox().intersect(this.getBox()))
                     {
-                        isPossible = false;
+                        isPossible = 0;
                         break ;
                     }
                 }
             }
         }
-        if (isPossible)
+        if (isPossible == 1)
         {
             this.x += dx;
             this.y += dy;

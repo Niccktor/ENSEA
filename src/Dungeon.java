@@ -8,13 +8,14 @@ public class Dungeon {
     private char[][]maps;
     private int height;
     private int width;
-    private TileManager tile;
+    public TileManager tile;
 
     public ArrayList<Things> getListOfThings() {
         return listOfThings;
     }
 
     protected ArrayList<Things> listOfThings = new ArrayList<>();
+    protected ArrayList<Things> new_listOfThings = new ArrayList<>();
     private void createListOfThings(){
         this.listOfThings.clear();
         int i;
@@ -32,6 +33,9 @@ public class Dungeon {
                         break;
                     case ' ':
                         this.listOfThings.add(new Things(j, i, tile.getTile(0,0)));
+                        break;
+                    case 'X':
+                        this.listOfThings.add(new DestructionThings(j, i, tile.getTile(1,5)));
                         break;
                 }
                 j++;

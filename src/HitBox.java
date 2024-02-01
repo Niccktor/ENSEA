@@ -23,14 +23,14 @@ public class HitBox {
 
     public boolean intersect(HitBox B) {
 
-        double xmin = this.x * this.width;
-        double xmax = this.x * this.width + this.width;
-        double ymin = this.y * this.height;
-        double ymax = this.y * this.height + this.height;
-        double xmin2 = B.x * B.width + 1;
-        double xmax2 = B.x * B.width + B.width - 1;
-        double ymin2 = B.y * B.height + 1;
-        double ymax2 = B.y * B.height + B.height - 1;
+        double xmin = this.x * 32;
+        double xmax = this.x * 32 + this.width;
+        double ymin = this.y * 32;
+        double ymax = this.y * 32 + this.height;
+        double xmin2 = B.x * 32 + 1;
+        double xmax2 = B.x * 32+ B.width - 1;
+        double ymin2 = B.y * 32 + 1;
+        double ymax2 = B.y * 32 + B.height - 1;
 
         return xmin < xmax2 && xmax > xmin2 && ymin < ymax2 && ymax > ymin2;
     }

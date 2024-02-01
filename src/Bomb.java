@@ -9,7 +9,7 @@ public class Bomb extends DynamicThings{
         super(x,y, new TileManager(32, 32, file), 400000000 );
     }
 
-    public void sprit()
+    public int sprit()
     {
         this.new_time = System.nanoTime();
         if(this.new_time - this.old_time > this.delay)
@@ -18,11 +18,8 @@ public class Bomb extends DynamicThings{
             this.old_time = System.nanoTime();
         }
         if (!(this.i < this.tile.tiles[0].length))
-        {
-            this.tile = new TileManager(32,32, "explosion_center.png");
-            this.i = 0;
-        }
+            return 1;
         this.img = this.tile.getTile(0,this.i);
-        System.out.format("i: %d\n\n", i);
+        return 0;
     }
 }

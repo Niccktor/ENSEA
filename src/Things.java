@@ -26,7 +26,7 @@ public class Things {
     }
     public void draw(Graphics graphics) {
         //System.out.format("X : %.2f Y : %.2f\n", this.x, this.y);
-        graphics.drawImage(this.img , (int)(this.x * this.width), (int)(this.y * this.height) + 32, null);
+        graphics.drawImage(this.img , (int)(this.x * 32), (int)(this.y * 32) + 32, null);
     }
     public HitBox getBox() {
         return box;

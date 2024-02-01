@@ -29,7 +29,7 @@ public class AnimatedThings extends SolidThings {
     public AnimatedThings(double x, double y, Image image) {
         super(x, y, image);
     }
-   public void sprit()
+   public int sprit()
     {
         this.new_time = System.nanoTime();
         if(this.new_time - this.old_time > this.delay)
@@ -40,8 +40,9 @@ public class AnimatedThings extends SolidThings {
         this.i = (this.i < this.tile.tiles[0].length) ? this.i : 0;
         this.img = this.tile.getTile(0,this.i);
         System.out.format("i: %d\n\n", i);
+        return 0;
     }
-    public void sprit(double angle)
+    public int sprit(double angle)
     {
         //this.i = (this.i < this.tile.tiles[0].length -1) ? this.i + 1: 0;
         this.new_time = System.nanoTime();
@@ -52,6 +53,6 @@ public class AnimatedThings extends SolidThings {
         }
         this.i = (this.i < this.tile.tiles[0].length) ? this.i : 0;
         this.img = this.tile.getTile(0,this.i, angle);
-
+        return 0;
     }
 }
