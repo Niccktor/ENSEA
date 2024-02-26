@@ -17,7 +17,7 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
 
     public MainInterface() throws HeadlessException, IOException {
         super("test");
-        this.gameRender = new GameRender(new Dungeon("./test.txt"));
+        this.gameRender = new GameRender(new Dungeon("./test2.txt"));
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -38,9 +38,11 @@ public class MainInterface extends JFrame  implements KeyListener, MouseMotionLi
         BufferedImage title_play = ImageIO.read(new File("Title-play.png"));
         BufferedImage GameOver1 = ImageIO.read(new File("GameOver1.png"));
         BufferedImage GameOver2 = ImageIO.read(new File("GameOver2.png"));
-
+        long old = System.nanoTime();
         while (true)
         {
+
+            long newTime = System.nanoTime();
             if (this.gameRender.play == 1)
             {
                 if (this.gameRender.mouseX >= 420 && this.gameRender.mouseX <= 498 && this.gameRender.mouseY >= 196 && this.gameRender.mouseY <= 284)
